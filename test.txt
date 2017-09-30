@@ -1,0 +1,9 @@
+select serial, name, salary, age, license from employees, salaries where serial = code and name = john and salary > 1000
+select * from table1 where name = francesco
+select name, surname, VAT from taxes, family where age < 30 or age = sdfkj
+select * from table1, table2, table3, table4 where salaries < 1000
+select col1, col2 from tab1 where name = francesco
+select col1, col2 tab1 where name = francesco
+select col1, col2 from tab1 name > 3948
+select col1, col2 from tab1 where name > 1jk
+select name, surname, gender, fiscalcode from taxes, family where age > 18

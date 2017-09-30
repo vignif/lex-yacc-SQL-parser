@@ -1,0 +1,20 @@
+Using lex/yacc implement a parser for the select SQL statement.
+The syntax of the command is
+
+select col1, col2,… from tab1, tab2,.. where cond
+
+where the column (col1, col2,…) and table (tab1, tab2,..) names
+have the usual structure of identifiers (alphanumeric strings
+beginning with a letter) and cond is the condition that
+is written by combining terms
+
+col op col
+col op const
+
+using the connectors and, or. col is a name of a column, const is a constant
+and op is a comparison operator among <, >, =. For instance
+
+select serial, name, salary from employees, salaries where serial = code and
+name = john and salary > 1000
+
+In the code just print the matched terms.

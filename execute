@@ -1,0 +1,4 @@
+yacc -d --verbose sql.y
+lex sql.l
+gcc lex.yy.c y.tab.c utils.c -o sql -ll -ly -w
+./sql <test.txt

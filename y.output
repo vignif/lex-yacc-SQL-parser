@@ -1,0 +1,321 @@
+Grammar
+
+    0 $accept: lines $end
+
+    1 lines: line
+    2      | lines line
+    3      | lines error
+
+    4 line: select identifiers FROM identifiers WHERE cond NL
+
+    5 identifiers: '*'
+    6            | IDENTIFIER
+    7            | IDENTIFIER ',' identifiers
+
+    8 select: SELECT
+
+    9 cond: IDENTIFIER op compare
+   10     | IDENTIFIER op compare conn cond
+
+   11 compare: IDENTIFIER
+   12        | CONST
+
+   13 op: '<'
+   14   | '='
+   15   | '>'
+
+   16 conn: AND
+   17     | OR
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'*' (42) 5
+',' (44) 7
+'<' (60) 13
+'=' (61) 14
+'>' (62) 15
+error (256) 3
+NL (258) 4
+IDENTIFIER (259) 6 7 9 10 11
+CONST (260) 12
+SELECT (261) 8
+FROM (262) 4
+WHERE (263) 4
+AND (264) 16
+OR (265) 17
+
+
+Nonterminals, with rules where they appear
+
+$accept (16)
+    on left: 0
+lines (17)
+    on left: 1 2 3, on right: 0 2 3
+line (18)
+    on left: 4, on right: 1 2
+identifiers (19)
+    on left: 5 6 7, on right: 4 7
+select (20)
+    on left: 8, on right: 4
+cond (21)
+    on left: 9 10, on right: 4 10
+compare (22)
+    on left: 11 12, on right: 9 10
+op (23)
+    on left: 13 14 15, on right: 9 10
+conn (24)
+    on left: 16 17, on right: 10
+
+
+state 0
+
+    0 $accept: . lines $end
+
+    SELECT  shift, and go to state 1
+
+    lines   go to state 2
+    line    go to state 3
+    select  go to state 4
+
+
+state 1
+
+    8 select: SELECT .
+
+    $default  reduce using rule 8 (select)
+
+
+state 2
+
+    0 $accept: lines . $end
+    2 lines: lines . line
+    3      | lines . error
+
+    $end    shift, and go to state 5
+    error   shift, and go to state 6
+    SELECT  shift, and go to state 1
+
+    line    go to state 7
+    select  go to state 4
+
+
+state 3
+
+    1 lines: line .
+
+    $default  reduce using rule 1 (lines)
+
+
+state 4
+
+    4 line: select . identifiers FROM identifiers WHERE cond NL
+
+    IDENTIFIER  shift, and go to state 8
+    '*'         shift, and go to state 9
+
+    identifiers  go to state 10
+
+
+state 5
+
+    0 $accept: lines $end .
+
+    $default  accept
+
+
+state 6
+
+    3 lines: lines error .
+
+    $default  reduce using rule 3 (lines)
+
+
+state 7
+
+    2 lines: lines line .
+
+    $default  reduce using rule 2 (lines)
+
+
+state 8
+
+    6 identifiers: IDENTIFIER .
+    7            | IDENTIFIER . ',' identifiers
+
+    ','  shift, and go to state 11
+
+    $default  reduce using rule 6 (identifiers)
+
+
+state 9
+
+    5 identifiers: '*' .
+
+    $default  reduce using rule 5 (identifiers)
+
+
+state 10
+
+    4 line: select identifiers . FROM identifiers WHERE cond NL
+
+    FROM  shift, and go to state 12
+
+
+state 11
+
+    7 identifiers: IDENTIFIER ',' . identifiers
+
+    IDENTIFIER  shift, and go to state 8
+    '*'         shift, and go to state 9
+
+    identifiers  go to state 13
+
+
+state 12
+
+    4 line: select identifiers FROM . identifiers WHERE cond NL
+
+    IDENTIFIER  shift, and go to state 8
+    '*'         shift, and go to state 9
+
+    identifiers  go to state 14
+
+
+state 13
+
+    7 identifiers: IDENTIFIER ',' identifiers .
+
+    $default  reduce using rule 7 (identifiers)
+
+
+state 14
+
+    4 line: select identifiers FROM identifiers . WHERE cond NL
+
+    WHERE  shift, and go to state 15
+
+
+state 15
+
+    4 line: select identifiers FROM identifiers WHERE . cond NL
+
+    IDENTIFIER  shift, and go to state 16
+
+    cond  go to state 17
+
+
+state 16
+
+    9 cond: IDENTIFIER . op compare
+   10     | IDENTIFIER . op compare conn cond
+
+    '<'  shift, and go to state 18
+    '>'  shift, and go to state 19
+    '='  shift, and go to state 20
+
+    op  go to state 21
+
+
+state 17
+
+    4 line: select identifiers FROM identifiers WHERE cond . NL
+
+    NL  shift, and go to state 22
+
+
+state 18
+
+   13 op: '<' .
+
+    $default  reduce using rule 13 (op)
+
+
+state 19
+
+   15 op: '>' .
+
+    $default  reduce using rule 15 (op)
+
+
+state 20
+
+   14 op: '=' .
+
+    $default  reduce using rule 14 (op)
+
+
+state 21
+
+    9 cond: IDENTIFIER op . compare
+   10     | IDENTIFIER op . compare conn cond
+
+    IDENTIFIER  shift, and go to state 23
+    CONST       shift, and go to state 24
+
+    compare  go to state 25
+
+
+state 22
+
+    4 line: select identifiers FROM identifiers WHERE cond NL .
+
+    $default  reduce using rule 4 (line)
+
+
+state 23
+
+   11 compare: IDENTIFIER .
+
+    $default  reduce using rule 11 (compare)
+
+
+state 24
+
+   12 compare: CONST .
+
+    $default  reduce using rule 12 (compare)
+
+
+state 25
+
+    9 cond: IDENTIFIER op compare .
+   10     | IDENTIFIER op compare . conn cond
+
+    AND  shift, and go to state 26
+    OR   shift, and go to state 27
+
+    $default  reduce using rule 9 (cond)
+
+    conn  go to state 28
+
+
+state 26
+
+   16 conn: AND .
+
+    $default  reduce using rule 16 (conn)
+
+
+state 27
+
+   17 conn: OR .
+
+    $default  reduce using rule 17 (conn)
+
+
+state 28
+
+   10 cond: IDENTIFIER op compare conn . cond
+
+    IDENTIFIER  shift, and go to state 16
+
+    cond  go to state 29
+
+
+state 29
+
+   10 cond: IDENTIFIER op compare conn cond .
+
+    $default  reduce using rule 10 (cond)

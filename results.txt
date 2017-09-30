@@ -1,0 +1,18 @@
+line: 1 
+ columns: serial name salary age license 
+ tables: employees salaries
+line: 2 
+ columns: ALL 
+ tables: table1
+line: 3 
+ columns: name surname VATtaxes 
+ tables: taxes family
+line: 4 
+ columns: ALL 
+ tables: table1 table2 table3 table4
+line: 5 
+ columns: col1 col2 
+ tables: tab1
+line: 9 
+ columns: name surname gender fiscalcode 
+ tables: taxes family
