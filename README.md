@@ -6,6 +6,8 @@ The compiled version of the program is also provided.
 
 ![logo](https://foss.unh.edu/projects/images/c/c8/Lex_Yacc.JPG)
 
+The source file of **yacc** is defined in `sql.y`
+The source file of **lex** is defined in `sql.l`
 
 An exensive description of the project is presented in: **lex_yacc_project.pdf**
 
