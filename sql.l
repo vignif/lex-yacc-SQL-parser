@@ -17,7 +17,7 @@ or			return OR;
 [=]			return *yytext;
 [<]			return *yytext;
 [>]			return *yytext;
-[a-zA-Z][a-zA-Z0-9]+ 	{yylval.Mystr=strdup(yytext);
+[a-zA-Z][a-zA-Z0-9]* 	{yylval.Mystr=strdup(yytext);
 			return IDENTIFIER;}
 [0-9]+			return CONST;
 \n			{++yylval.numerorighe; return NL;}
