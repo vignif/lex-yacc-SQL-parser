@@ -78,3 +78,10 @@ The file `text.txt` defines line per line some dumb sql queries to be tested wit
 ./sql <test.txt
 ```
 
+
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+**[MIT license](http://opensource.org/licenses/mit-license.php)**
+- Copyright 2021 © Francesco Vigni
